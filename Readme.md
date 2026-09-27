@@ -4,6 +4,53 @@ This explains every part of the project: the React frontend and the Express back
 
 ---
 
+## Install and Run
+
+### Create a new React app
+
+```bash
+npm create vite@latest pc-build-shop-react -- --template react
+cd pc-build-shop-react
+```
+
+### Install this project
+
+```bash
+cd frontend
+npm install
+
+cd ../backend
+npm install
+copy .env.example .env
+```
+
+Set the MySQL values in `backend/.env` before starting the server.
+
+### Start the application
+
+From the project root, use two terminals:
+
+```bash
+# Terminal 1
+cd backend
+node server.js
+```
+
+```bash
+# Terminal 2
+cd frontend
+npm run dev
+```
+
+For a production frontend build:
+
+```bash
+cd frontend
+npm run build
+```
+
+---
+
 ## Part A — Quick Reference (Your Own Variable Names)
 
 ### Frontend (`App.jsx`)
