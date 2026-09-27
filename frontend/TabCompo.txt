@@ -1,0 +1,416 @@
+import './TabCompo.css';
+export function TabCompo({onSelectEdit}) {
+
+    const [quantities, setQuantities] = useState({ 1: 6, 2: 12, 3: 3, 4: 3, 5: 7, 6: 10, 7: 25, 8: 15 });
+    const [prod, setProd] = useState({ 1: 18500, 2: 15000, 3: 62000, 4: 3400, 5: 7500, 6: 950, 7: 15000, 8: 400 });
+    let price=0;
+    const [clearedRows, setClearedRows] = useState({});
+    Object.keys(quantities).forEach((i)=>{
+        price += (prod[i] || 0) * (quantities[i] || 0);
+    })
+    const handleEdit = (item) => {
+        onSelectEdit(item);
+    };
+    const handleDelete = (rowId) => {
+        setQuantities((prev) => ({ ...prev, [rowId]: 0 }));
+        setProd((prev) => ({ ...prev, [rowId]: 0 }));
+        setClearedRows((prev) => ({ ...prev, [rowId]: true }));
+    };
+    return (
+        <>
+            <h4 className="text-center  text-dark m-auto">Components</h4>
+            <table className="table table-light w-auto text-center table-hover mt-4 p-1" >
+                <thead>
+                <tr className="align-text-top ">
+                    <th className="text-dark-emphasis">S No.</th>
+                    <th className="text-dark-emphasis">Product Name</th>
+                    <th className="text-dark-emphasis">Company Name</th>
+                    <th className="text-dark-emphasis">Quant.</th>
+                    <th className="text-dark-emphasis">Price</th>
+                    <th className="text-dark-emphasis">Model Name</th>
+                    <th className="text-dark-emphasis">Action Key</th>
+                </tr>
+                </thead>
+                <tbody className="m-6">
+                <tr>
+                    <td>1</td>
+                    <td>Motherboard</td>
+                    <td>ASUS</td>
+                    <td>{quantities[1]}</td>
+                    <td>₹{prod[1]}</td>
+                    <td>ROG Strix B550-F</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 1,
+                                productName: "Motherboard",
+                                companyName: "ASUS",
+                                quantity: quantities[1],
+                                price: prod[1],
+                                modelName: "ROG Strix B550-F",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Processor (CPU)</td>
+                    <td>AMD</td>
+                    <td>{quantities[2]}</td>
+                    <td>₹{prod[2]}</td>
+                    <td>Ryzen 5 5600X</td>
+                    <td className="text-nowrap">
+                        <button className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 2,
+                                productName: "Processor (CPU)",
+                                companyName: "AMD",
+                                quantity: quantities[2],
+                                price: prod[2],
+                                modelName: "Ryzen 5 5600X",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Graphics Card (GPU)</td>
+                    <td>NVIDIA</td>
+                    <td>{quantities[3]}</td>
+                    <td>₹{prod[3]}</td>
+                    <td>RTX 4070</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 3,
+                                productName: "Graphics Card (GPU)",
+                                companyName: "NVIDIA",
+                                quantity: quantities[3],
+                                price: prod[3],
+                                modelName: "RTX 4070",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Storage Drive(SSD)</td>
+                    <td>Crucial</td>
+                    <td>{quantities[4]}</td>
+                    <td>₹{prod[4]}</td>
+                    <td>CT500P3</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 4,
+                                productName: "Storage Drive(SSD)",
+                                companyName: "Crucial",
+                                quantity: quantities[4],
+                                price: prod[4],
+                                modelName: "CT500P3",
+                            })
+                        } >Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Storage Drive(SSD)</td>
+                    <td>WD Digital</td>
+                    <td>{quantities[5]}</td>
+                    <td>₹{prod[5]}</td>
+                    <td>WDS480 G3GOA</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 5,
+                                productName: "Storage Drive(SSD)",
+                                companyName: "WD Digital",
+                                quantity: quantities[5],
+                                price: prod[5],
+                                modelName: "WDS480 G3GOA",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Pen Drive</td>
+                    <td>SanDisk</td>
+                    <td>{quantities[6]}</td>
+                    <td>₹{prod[6]}</td>
+                    <td>SDCZ48 064G I35</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m" onClick={() =>
+                            handleEdit({
+                                id: 6,
+                                productName: "Pen Drive",
+                                companyName: "SanDisk",
+                                quantity: quantities[6],
+                                price: prod[6],
+                                modelName: "SDCZ48 064G I35",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Keyboard (Wired)</td>
+                    <td>Logitech</td>
+                    <td>{quantities[7]}</td>
+                    <td>₹{prod[7]}</td>
+                    <td>MX Mech Keys</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 7,
+                                productName: "Keyboard (Wired)",
+                                companyName: "Logitech",
+                                quantity: quantities[7],
+                                price: prod[7],
+                                modelName: "ROG Strix B550-F",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1" >Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Mouse (Wired)</td>
+                    <td>Logitech</td>
+                    <td>{quantities[8]}</td>
+                    <td>₹{prod[8]}</td>
+                    <td>B100</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 8,
+                                productName: "Mouse (Wired)",
+                                companyName: "Logitech",
+                                quantity: quantities[8],
+                                price: prod[8],
+                                modelName: "B100",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1" >Del</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h2 className="text-dark-emphasis">Total - {price}</h2>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        </>
+    )
+}
+
+
+
+import './TabCompo.css';
+export function TabCompo({onSelectEdit}) {
+
+    const quantities= { 1: 6, 2: 12, 3: 3, 4: 3, 5: 7, 6: 10, 7: 25, 8: 15 };
+    const prod={ 1: 18500, 2: 15000, 3: 62000, 4: 3400, 5: 7500, 6: 950, 7: 15000, 8: 400 };
+    let price=0;
+
+    Object.keys(quantities).forEach((i)=>{
+        price+=prod[i]*quantities[i];
+    })
+    const handleEdit = (item) => {
+        onSelectEdit(item);
+    };
+    return (
+        <>
+            <h4 className="text-center  text-dark m-auto">Components</h4>
+            <table className="table table-light w-auto text-center table-hover mt-4 p-1" >
+                <thead>
+                <tr className="align-text-top ">
+                    <th className="text-dark-emphasis">S No.</th>
+                    <th className="text-dark-emphasis">Product Name</th>
+                    <th className="text-dark-emphasis">Company Name</th>
+                    <th className="text-dark-emphasis">Quant.</th>
+                    <th className="text-dark-emphasis">Price</th>
+                    <th className="text-dark-emphasis">Model Name</th>
+                    <th className="text-dark-emphasis">Action Key</th>
+                </tr>
+                </thead>
+                <tbody className="m-6">
+                <tr>
+                    <td>1</td>
+                    <td>Motherboard</td>
+                    <td>ASUS</td>
+                    <td>{quantities[1]}</td>
+                    <td>₹{prod[1]}</td>
+                    <td>ROG Strix B550-F</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 1,
+                                productName: "Motherboard",
+                                companyName: "ASUS",
+                                quantity: quantities[1],
+                                price: prod[1],
+                                modelName: "ROG Strix B550-F",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Processor (CPU)</td>
+                    <td>AMD</td>
+                    <td>{quantities[2]}</td>
+                    <td>₹{prod[2]}</td>
+                    <td>Ryzen 5 5600X</td>
+                    <td className="text-nowrap">
+                        <button className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 2,
+                                productName: "Processor (CPU)",
+                                companyName: "AMD",
+                                quantity: quantities[2],
+                                price: prod[2],
+                                modelName: "Ryzen 5 5600X",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Graphics Card (GPU)</td>
+                    <td>NVIDIA</td>
+                    <td>{quantities[3]}</td>
+                    <td>₹{prod[3]}</td>
+                    <td>RTX 4070</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 3,
+                                productName: "Graphics Card (GPU)",
+                                companyName: "NVIDIA",
+                                quantity: quantities[3],
+                                price: prod[3],
+                                modelName: "RTX 4070",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Storage Drive(SSD)</td>
+                    <td>Crucial</td>
+                    <td>{quantities[4]}</td>
+                    <td>₹{prod[4]}</td>
+                    <td>CT500P3</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 4,
+                                productName: "Storage Drive(SSD)",
+                                companyName: "Crucial",
+                                quantity: quantities[4],
+                                price: prod[4],
+                                modelName: "CT500P3",
+                            })
+                        } >Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Storage Drive(SSD)</td>
+                    <td>WD Digital</td>
+                    <td>{quantities[5]}</td>
+                    <td>₹{prod[5]}</td>
+                    <td>WDS480 G3GOA</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 5,
+                                productName: "Storage Drive(SSD)",
+                                companyName: "WD Digital",
+                                quantity: quantities[5],
+                                price: prod[5],
+                                modelName: "WDS480 G3GOA",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Pen Drive</td>
+                    <td>SanDisk</td>
+                    <td>{quantities[6]}</td>
+                    <td>₹{prod[6]}</td>
+                    <td>SDCZ48 064G I35</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m" onClick={() =>
+                            handleEdit({
+                                id: 6,
+                                productName: "Pen Drive",
+                                companyName: "SanDisk",
+                                quantity: quantities[6],
+                                price: prod[6],
+                                modelName: "SDCZ48 064G I35",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1">Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Keyboard (Wired)</td>
+                    <td>Logitech</td>
+                    <td>{quantities[7]}</td>
+                    <td>₹{prod[7]}</td>
+                    <td>MX Mech Keys</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 7,
+                                productName: "Keyboard (Wired)",
+                                companyName: "Logitech",
+                                quantity: quantities[7],
+                                price: prod[7],
+                                modelName: "ROG Strix B550-F",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1" >Del</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Mouse (Wired)</td>
+                    <td>Logitech</td>
+                    <td>{quantities[8]}</td>
+                    <td>₹{prod[8]}</td>
+                    <td>B100</td>
+                    <td className="text-nowrap">
+                        <button  className="button-a button btn btn-primary btn-sm m-1" onClick={() =>
+                            handleEdit({
+                                id: 8,
+                                productName: "Mouse (Wired)",
+                                companyName: "Logitech",
+                                quantity: quantities[8],
+                                price: prod[8],
+                                modelName: "B100",
+                            })
+                        }>Edit</button>
+                        <button className="button-a btn btn-danger btn-sm m-1" >Del</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h2 className="text-dark-emphasis">Total - {price}</h2>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        </>
+    )
+}
