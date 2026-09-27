@@ -24,6 +24,20 @@ npm install
 copy .env.example .env
 ```
 
+### Main libraries
+
+The frontend uses React. The backend uses Express, MySQL2, and dotenv to read environment variables from `.env`.
+
+To install these libraries manually:
+
+```bash
+cd frontend
+npm install react react-dom
+
+cd ../backend
+npm install express mysql2 dotenv
+```
+
 Set the MySQL values in `backend/.env` before starting the server.
 
 ### Start the application
