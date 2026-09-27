@@ -1,16 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2/promise");
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "0000",
-    database: "mydb"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: Number(process.env.DB_PORT)
 });
 
 app.get("/table", async (req, res) => {
