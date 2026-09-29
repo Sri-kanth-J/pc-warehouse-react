@@ -3,7 +3,7 @@ import "./TabCompo.css";
 
 const PAGE_SIZE = 5;
 
-export function TabCompo({ shop, onSelectEdit, onDelete }) {
+export function TabCompo({ shop = [], onSelectEdit = () => {}, onDelete = () => {} }) {
     const [page, setPage] = useState(1);
 
     let total = 0;
