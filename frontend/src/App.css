@@ -28,3 +28,6 @@ body {
   width: 2rem;
   height: 1rem;
 }
+
+.nav-arrow { transition: transform 0.3s ease, background-color 0.3s ease; }
+.nav-arrow:hover { transform: translateX(8px); background-color: rgba(0,0,0,0.08); }

@@ -10,18 +10,28 @@ function Home() {
             <h1 className="title-a text-center text-info">Pc Building Store</h1>
             <div className="row justify-content-center gap-3 mt-5">
                 <div className="col-md-4">
-                    <Link to="/tables" className="card text-decoration-none h-100">
+                    <div className="card h-100">
                         <div className="card-body bg-warning-subtle text-dark-emphasis text-center p-5">
                             <h2>Table</h2>
-                            <p className="mb-0 text-muted">Open the table view</p>
                         </div>
-                    </Link>
+                        <div className="card-footer bg-warning-subtle border-top border-dark-subtle text-center">
+                            <p className="nav-arrow d-inline-flex align-items-center m-2 p-2 text-warning-emphasis text-muted">
+                                Open the table view
+                                <Link to="/tables" className="d-inline-flex align-items-center ms-2">
+                                    <svg width="48" height="24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M28 2 L40 12 L28 22" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
+                                    </svg>
+                                </Link>
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div className="col-md-4">
                     <Link to="/tablef" className="card text-decoration-none h-100">
-                        <div className="card-body bg-warning-subtle text-dark-emphasis text-center p-5">
+                        <div className="card-body bg-warning-subtle text-dark-emphasis  text-center p-5">
                             <h2>Form</h2>
-                            <p className="mb-0 text-muted">Open the table view along with the form</p>
+                            <p/>
+                            <p>Open the table view along with the form</p>
                         </div>
                     </Link>
                 </div>
@@ -29,7 +39,6 @@ function Home() {
         </div>
     );
 }
-
 
 function ShopPage({ isTableAndForm }) {
     const [shop, setShop] = useState([]);
@@ -145,6 +154,17 @@ function ShopPage({ isTableAndForm }) {
             setDark(!dark);
         }
 
+        function ThemeToggle({dark}){
+        return(
+        <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
+  <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
+        {dark ? "Darkㅤ" : "Lightㅤ"}
+    </span>
+            <input className="form-check-input mx-0 theme-toggle border-dark" type="checkbox" role="switch" id="themeToggle" checked={dark} onChange={isDark} />
+        </div>
+        );
+    }
+
         return (
             <>
                 {isTableAndForm ? (
@@ -160,42 +180,19 @@ function ShopPage({ isTableAndForm }) {
                         <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
                     </div>
                 </div>
+                <ThemeToggle dark={dark} onToggle={isDark} />
 
-                <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
-  <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
-        {dark ? "Darkㅤ" : "Lightㅤ"}
-    </span>
-                    <input
-                        className="form-check-input mx-0 theme-toggle border-dark"
-                        type="checkbox"
-                        role="switch"
-                        id="themeToggle"
-                        checked={dark}
-                        onChange={isDark}
-                    />
-                </div>
             </div>):(
                 <div className={`card container-fluid min-vh-100 pt-4 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
                     <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
                     <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
                     <div className="card-body gap-3 mt-2">
-                        <TabCompo/>
-                        <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
-  <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
-        {dark ? "Darkㅤ" : "Lightㅤ"}
-    </span>
-                            <input
-                                className="form-check-input mx-0 theme-toggle border-dark"
-                                type="checkbox"
-                                role="switch"
-                                id="themeToggle"
-                                checked={dark}
-                                onChange={() => setDark(currentDark => !currentDark)}
-                            />
-                        </div>
+                        <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
+                        <ThemeToggle dark={dark} onToggle={isDark} />
                     </div>
                 </div>)
                 }
+
                 </>
 
         );
