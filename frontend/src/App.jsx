@@ -30,33 +30,8 @@ function Home() {
     );
 }
 
-function TablePage() {
-    const [dark,setDark]=useState(true);
-    return (
-        <div className={`card container-fluid min-vh-100 pt-4 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-            <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
-            <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
-            <div className="card-body gap-3 mt-2">
-            <TabCompo/>
-            <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
-  <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
-        {dark ? "Darkㅤ" : "Lightㅤ"}
-    </span>
-                <input
-                    className="form-check-input mx-0 theme-toggle border-dark"
-                    type="checkbox"
-                    role="switch"
-                    id="themeToggle"
-                    checked={dark}
-                    onChange={() => setDark(currentDark => !currentDark)}
-                />
-            </div>
-            </div>
-        </div>
-    );
-}
 
-function ShopPage() {
+function ShopPage({ isTableAndForm }) {
     const [shop, setShop] = useState([]);
     const [dark,setDark]=useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -170,9 +145,9 @@ function ShopPage() {
             setDark(!dark);
         }
 
-
         return (
-
+            <>
+                {isTableAndForm ? (
             <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
                 <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
                 <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
@@ -199,7 +174,30 @@ function ShopPage() {
                         onChange={isDark}
                     />
                 </div>
-            </div>
+            </div>):(
+                <div className={`card container-fluid min-vh-100 pt-4 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
+                    <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
+                    <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+                    <div className="card-body gap-3 mt-2">
+                        <TabCompo/>
+                        <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
+  <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
+        {dark ? "Darkㅤ" : "Lightㅤ"}
+    </span>
+                            <input
+                                className="form-check-input mx-0 theme-toggle border-dark"
+                                type="checkbox"
+                                role="switch"
+                                id="themeToggle"
+                                checked={dark}
+                                onChange={() => setDark(currentDark => !currentDark)}
+                            />
+                        </div>
+                    </div>
+                </div>)
+                }
+                </>
+
         );
 }
 
@@ -207,8 +205,8 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/tables" element={<TablePage />} />
-            <Route path="/tablef" element={<ShopPage />} />
+            <Route path="/tables" element={<ShopPage isTableAndForm={false} />} />
+            <Route path="/tablef" element={<ShopPage isTableAndForm={true} />} />
         </Routes>
     );
 }
