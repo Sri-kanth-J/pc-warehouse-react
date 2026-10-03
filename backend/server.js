@@ -64,4 +64,21 @@ app.put("/update/:id", async (req, res) => {
     }
 });
 
+app.delete("/delete/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const [result] = await db.query(
+            `DELETE FROM shop WHERE id = ${id}`
+        );
+        if (result.affectedRows === 0) {
+            res.json({ error: "Item not found" });
+            return;
+        }
+        res.json({ id });
+    } catch (err) {
+        console.error(err);
+        res.json({ error: "Failed to delete data" });
+    }
+});
+
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));

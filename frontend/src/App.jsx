@@ -40,9 +40,9 @@ function Home() {
     );
 }
 
-function ShopPage({ isTableAndForm }) {
+function ShopPage({ isTableAndForm = true }) {
     const [shop, setShop] = useState([]);
-    const [dark,setDark]=useState(true);
+    const [dark, setDark] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
     useEffect(() => {
         fetch("http://localhost:3000/table")
@@ -92,7 +92,7 @@ function ShopPage({ isTableAndForm }) {
             try {
                 const response = await fetch(`http://localhost:3000/update/${data.id}`, {
                     method: "PUT",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
                         prod: data.productName,
                         comp: data.companyName,
@@ -122,7 +122,7 @@ function ShopPage({ isTableAndForm }) {
             try {
                 const response = await fetch("http://localhost:3000/new", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(newItem)
                 });
                 const result = await response.json();
@@ -142,6 +142,20 @@ function ShopPage({ isTableAndForm }) {
     };
 
     async function handleDelete(id) {
+        try {
+            const response = await fetch(`http://localhost:3000/delete/${id}`, {
+                method: "DELETE"
+            });
+            const result = await response.json();
+            if (result.error) {
+                console.error("Error deleting data:", result.error);
+                return;
+            }
+        } catch (error) {
+            console.error("Error deleting data:", error);
+            return;
+        }
+
         let newShop = [];
         for (let i = 0; i < shop.length; i++) {
             if (shop[i].id !== id) {
@@ -150,10 +164,9 @@ function ShopPage({ isTableAndForm }) {
         }
         setShop(newShop);
     }
-        function isDark() {
-            setDark(!dark);
-        }
-
+    function isDark() {
+        setDark(!dark);
+    }
         function ThemeToggle({dark}){
         return(
         <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
@@ -199,11 +212,12 @@ function ShopPage({ isTableAndForm }) {
 }
 
 function App() {
+    let isTF = true;
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/tables" element={<ShopPage isTableAndForm={false} />} />
-            <Route path="/tablef" element={<ShopPage isTableAndForm={true} />} />
+            <Route path="/tables" element={<ShopPage isTableAndForm={!isTF} />} />
+            <Route path="/tablef" element={<ShopPage />} />
         </Routes>
     );
 }
