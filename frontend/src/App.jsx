@@ -6,8 +6,9 @@ import "./App.css";
 
 function Home() {
     return (
-        <div className="container-fluid min-vh-100 pt-5 bg-dark text-light">
+        <div className="container-fluid min-vh-100 pt-4 pb-5 bg-dark text-light">
             <h1 className="title-a text-center text-info">Pc Building Store</h1>
+            <Nav/>
             <div className="row justify-content-center gap-3 mt-5">
                 <div className="col-md-4">
                     <div className="card h-100">
@@ -182,8 +183,8 @@ function ShopPage({ isTableAndForm = true }) {
             <>
                 {isTableAndForm ? (
             <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-                <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
                 <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+                <Nav/>
                 <div className="row pt-4 align-items-stretch">
                     <div className="col-md-5 ms-md-5 me-3 d-flex align-items-stretch">
                         <FormCompo shop={shop} editData={selectedItem} onSubmit={handleSave}/>
@@ -197,8 +198,8 @@ function ShopPage({ isTableAndForm = true }) {
 
             </div>):(
                 <div className={`card container-fluid min-vh-100 pt-4 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-                    <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
                     <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+                    <Nav/>
                     <div className="card-body gap-3 mt-2">
                         <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
                         <ThemeToggle dark={dark} onToggle={isDark} />
@@ -210,15 +211,32 @@ function ShopPage({ isTableAndForm = true }) {
 
         );
 }
+function Nav(){
+    return(
+    <nav className="navbar nav-tabs text border-black">
+        <div className="nav-link">
+            <Link to="/" className="nav-link text-info">Home</Link>
+        </div>
+        <div className="nav-link">
+            <Link to="/tables" className="nav-link text-info">Tables</Link>
+        </div>
+        <div className="nav-link">
+            <Link to="/tablef" className="nav-link text-info">Form</Link>
+        </div>
+    </nav>
+    );
+}
 
 function App() {
     let isTF = true;
     return (
+        <>
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tables" element={<ShopPage isTableAndForm={!isTF} />} />
             <Route path="/tablef" element={<ShopPage />} />
         </Routes>
+            </>
     );
 }
 

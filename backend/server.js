@@ -18,11 +18,7 @@ const db = mysql.createPool({
 
 app.get("/table", async (req, res) => {
     try {
-        const [rows] = await db.query(`SELECT * FROM shop`);
-        const shop = rows.map(row => ({
-            ...row,
-            models: typeof row.models === "string" ? JSON.parse(row.models) : row.models
-        }));
+        const [shop] = await db.query(`SELECT * FROM shop`);
         res.json(shop);
     } catch (err) {
         console.error(err);
@@ -63,13 +59,10 @@ app.put("/update/:id", async (req, res) => {
         res.json({ error: "Failed to update data" });
     }
 });
-
 app.delete("/delete/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        const [result] = await db.query(
-            `DELETE FROM shop WHERE id = ${id}`
-        );
+        const [result] = await db.query(`DELETE FROM shop WHERE id = ${id}`);
         if (result.affectedRows === 0) {
             res.json({ error: "Item not found" });
             return;
@@ -80,5 +73,6 @@ app.delete("/delete/:id", async (req, res) => {
         res.json({ error: "Failed to delete data" });
     }
 });
-
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+app.listen(3000, () => {
+    console.log("Running on http://localhost:3000");
+});
