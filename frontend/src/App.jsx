@@ -5,11 +5,14 @@ import { FormCompo } from "./components/FormCompo.jsx";
 import "./App.css";
 
 function Home() {
+    const [dark, setDark] = useState(true);
+    function isDark() {
+        setDark(!dark);
+    }
     return (
-
-        <div className='container-fluid min-vh-100 pt-4 pb-5 bg-dark'>
-            <h1 className="title-a text-center text-info">Pc Building Store</h1>
-            <Nav/>
+        <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
+            <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+            <Nav dark={dark} onToggle={isDark} />
             <div className="row justify-content-center gap-3 pt-4">
                 <div className="col-md-4">
                     <div className="card h-100">
@@ -185,7 +188,7 @@ function ShopPage({ isTableAndForm = true }) {
                 {isTableAndForm ? (
             <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
                 <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
-                <Nav/>
+                <Nav dark={dark} onToggle={isDark} />
                 <div className="row pt-4 align-items-stretch">
                     <div className="col-md-5 ms-md-5 me-3 d-flex align-items-stretch">
                         <FormCompo shop={shop} editData={selectedItem} onSubmit={handleSave}/>
@@ -195,15 +198,13 @@ function ShopPage({ isTableAndForm = true }) {
                         <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
                     </div>
                 </div>
-                <ThemeToggle dark={dark} onToggle={isDark}>Form</ThemeToggle>
             </div>):(
                 <div className={`card container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
                     <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
-                    <Nav/>
+                    <Nav dark={dark} onToggle={isDark} />
                     <div className="card-body gap-3 mt-2">
                         <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
                     </div>
-                    <ThemeToggle dark={dark} onToggle={isDark}>Form</ThemeToggle>
                 </div>)
                 }
 
@@ -211,13 +212,25 @@ function ShopPage({ isTableAndForm = true }) {
 
         );
 }
-function Nav(){
-    return(
-    <ul className="nav nav-tabs navbar-collapse">
-        <li className="nav-item"><Link to="/" className="nav-link text-info">Home</Link></li>
-        <li className="nav-item"><Link to="/tables" className="nav-link text-info">Tables</Link></li>
-        <li className="nav-item"><Link to="/tablef" className="nav-link text-info">Form</Link></li>
-    </ul>
+function Nav({ dark, onToggle }) {
+    return (
+        <ul className="nav nav-tabs navbar-collapse align-items-center">
+            <li className="nav-item"><Link to="/" className="nav-link text-info">Home</Link></li>
+            <li className="nav-item"><Link to="/tables" className="nav-link text-info">Tables</Link></li>
+            <li className="nav-item"><Link to="/tablef" className="nav-link text-info">Form</Link></li>
+            {onToggle && (
+                <li className="nav-item ms-auto">
+                    <button
+                        type="button"
+                        className="btn btn-link nav-link text-info"
+                        onClick={onToggle}
+                        aria-label="Toggle theme"
+                    >
+                        {dark ? "☀️" : "🌙"}
+                    </button>
+                </li>
+            )}
+        </ul>
     );
 }
 
