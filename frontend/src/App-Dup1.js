@@ -6,34 +6,22 @@ import "./App.css";
 
 function Home() {
     return (
-
-        <div className='container-fluid min-vh-100 pt-4 pb-5 bg-dark'>
+        <div className="container-fluid min-vh-100 pt-5 bg-dark text-light">
             <h1 className="title-a text-center text-info">Pc Building Store</h1>
-            <Nav/>
-            <div className="row justify-content-center gap-3 pt-4">
+            <div className="row justify-content-center gap-3 mt-5">
                 <div className="col-md-4">
-                    <div className="card h-100">
+                    <Link to="/tables" className="card text-decoration-none h-100">
                         <div className="card-body bg-warning-subtle text-dark-emphasis text-center p-5">
                             <h2>Table</h2>
+                            <p className="mb-0 text-muted">Open the table view</p>
                         </div>
-                        <div className="card-footer bg-warning-subtle border-top border-dark-subtle text-center">
-                            <Link to="/tables" className="d-inline-flex align-items-center ms-2 text-reset text-decoration-none">
-                            <p className="nav-arrow d-inline-flex align-items-center m-2 p-2 text-warning-emphasis text-muted">
-                                Open the table view
-                                    <svg width="48" height="24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M28 2 L40 12 L28 22" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
-                                    </svg>
-                            </p>
-                            </Link>
-                        </div>
-                    </div>
+                    </Link>
                 </div>
                 <div className="col-md-4">
                     <Link to="/tablef" className="card text-decoration-none h-100">
-                        <div className="card-body bg-warning-subtle text-dark-emphasis  text-center p-5">
+                        <div className="card-body bg-warning-subtle text-dark-emphasis text-center p-5">
                             <h2>Form</h2>
-                            <p/>
-                            <p>Open the table view along with the form</p>
+                            <p className="mb-0 text-muted">Open the table view along with the form</p>
                         </div>
                     </Link>
                 </div>
@@ -42,9 +30,35 @@ function Home() {
     );
 }
 
-function ShopPage({ isTableAndForm = true }) {
+function TablePage() {
+    const [dark,setDark]=useState(true);
+    return (
+        <div className={`card container-fluid min-vh-100 pt-4 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
+            <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
+            <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+            <div className="card-body gap-3 mt-2">
+                <TabCompo/>
+                <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
+  <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
+        {dark ? "Darkㅤ" : "Lightㅤ"}
+    </span>
+                    <input
+                        className="form-check-input mx-0 theme-toggle border-dark"
+                        type="checkbox"
+                        role="switch"
+                        id="themeToggle"
+                        checked={dark}
+                        onChange={() => setDark(currentDark => !currentDark)}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function ShopPage() {
     const [shop, setShop] = useState([]);
-    const [dark, setDark] = useState(true);
+    const [dark,setDark]=useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
     useEffect(() => {
         fetch("http://localhost:3000/table")
@@ -94,7 +108,7 @@ function ShopPage({ isTableAndForm = true }) {
             try {
                 const response = await fetch(`http://localhost:3000/update/${data.id}`, {
                     method: "PUT",
-                    headers: {"Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         prod: data.productName,
                         comp: data.companyName,
@@ -124,7 +138,7 @@ function ShopPage({ isTableAndForm = true }) {
             try {
                 const response = await fetch("http://localhost:3000/new", {
                     method: "POST",
-                    headers: {"Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(newItem)
                 });
                 const result = await response.json();
@@ -144,20 +158,6 @@ function ShopPage({ isTableAndForm = true }) {
     };
 
     async function handleDelete(id) {
-        try {
-            const response = await fetch(`http://localhost:3000/delete/${id}`, {
-                method: "DELETE"
-            });
-            const result = await response.json();
-            if (result.error) {
-                console.error("Error deleting data:", result.error);
-                return;
-            }
-        } catch (error) {
-            console.error("Error deleting data:", error);
-            return;
-        }
-
         let newShop = [];
         for (let i = 0; i < shop.length; i++) {
             if (shop[i].id !== id) {
@@ -169,68 +169,47 @@ function ShopPage({ isTableAndForm = true }) {
     function isDark() {
         setDark(!dark);
     }
-        function ThemeToggle({dark}){
-        return(
-        <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
+
+
+    return (
+
+        <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
+            <Link to="/" className={`page-link ${dark ? "text-light" : "text-dark"}`}>Home</Link>
+            <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+            <div className="row pt-4 align-items-stretch">
+                <div className="col-md-5 ms-md-5 me-3 d-flex align-items-stretch">
+                    <FormCompo shop={shop} editData={selectedItem} onSubmit={handleSave}/>
+
+                </div>
+                <div className="col-md-6 ms-0 d-flex align-items-stretch">
+                    <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
+                </div>
+            </div>
+
+            <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
   <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
         {dark ? "Darkㅤ" : "Lightㅤ"}
     </span>
-            <input className="form-check-input mx-0 theme-toggle border-dark" type="checkbox" role="switch" id="themeToggle" checked={dark} onChange={isDark} />
+                <input
+                    className="form-check-input mx-0 theme-toggle border-dark"
+                    type="checkbox"
+                    role="switch"
+                    id="themeToggle"
+                    checked={dark}
+                    onChange={isDark}
+                />
+            </div>
         </div>
-        );
-    }
-
-        return (
-            <>
-                {isTableAndForm ? (
-            <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-                <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
-                <Nav/>
-                <div className="row pt-4 align-items-stretch">
-                    <div className="col-md-5 ms-md-5 me-3 d-flex align-items-stretch">
-                        <FormCompo shop={shop} editData={selectedItem} onSubmit={handleSave}/>
-
-                    </div>
-                    <div className="col-md-6 ms-0 d-flex align-items-stretch">
-                        <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
-                    </div>
-                </div>
-                <ThemeToggle dark={dark} onToggle={isDark}>Form</ThemeToggle>
-            </div>):(
-                <div className={`card container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-                    <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
-                    <Nav/>
-                    <div className="card-body gap-3 mt-2">
-                        <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
-                    </div>
-                    <ThemeToggle dark={dark} onToggle={isDark}>Form</ThemeToggle>
-                </div>)
-                }
-
-                </>
-
-        );
-}
-function Nav(){
-    return(
-    <ul className="nav nav-tabs navbar-collapse">
-        <li className="nav-item"><Link to="/" className="nav-link text-info">Home</Link></li>
-        <li className="nav-item"><Link to="/tables" className="nav-link text-info">Tables</Link></li>
-        <li className="nav-item"><Link to="/tablef" className="nav-link text-info">Form</Link></li>
-    </ul>
     );
 }
 
 function App() {
-    let isTF = true;
     return (
-        <>
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/tables" element={<ShopPage isTableAndForm={!isTF} />} />
+            <Route path="/tables" element={<TablePage />} />
             <Route path="/tablef" element={<ShopPage />} />
         </Routes>
-            </>
     );
 }
 
