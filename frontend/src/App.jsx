@@ -1,5 +1,6 @@
 import { useState , useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
+import { House, Table, Pass } from "react-bootstrap-icons";
 import { TabCompo } from "./components/TabCompo.jsx";
 import { FormCompo } from "./components/FormCompo.jsx";
 import "./App.css";
@@ -214,12 +215,13 @@ function ShopPage({ isTableAndForm = true }) {
 }
 function Nav({ dark, onToggle }) {
     return (
-        <ul className="nav nav-tabs navbar-collapse align-items-center">
-            <li className="nav-item"><Link to="/" className="nav-link text-info">Home</Link></li>
-            <li className="nav-item"><Link to="/tables" className="nav-link text-info">Tables</Link></li>
-            <li className="nav-item"><Link to="/tablef" className="nav-link text-info">Form</Link></li>
+        <ul className={`nav nav-tabs navbar-collapse align-items-center ${dark ? "border-info":"border-primary"}`}>
+            <li className="nav-item"><Link to="/" className="nav-link text-info"><House /></Link>
+            </li>
+            <li className="nav-item"><Link to="/tables" className="nav-link text-info"><Table /></Link></li>
+            <li className="nav-item"><Link to="/tablef" className="nav-link text-info"><Pass /></Link></li>
             {onToggle && (
-                <li className="nav-item ms-auto">
+                <li className="nav-item ms-auto p-1">
                     <button
                         type="button"
                         className="btn btn-link nav-link text-info"
