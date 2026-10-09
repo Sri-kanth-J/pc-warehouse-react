@@ -12,6 +12,12 @@ function ShopPage() {
     }
     const [shop, setShop] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
+
+    function handleEdit(item) {
+        setSelectedItem(item);
+        setPage("form");
+    }
+
     useEffect(() => {
         fetch("http://localhost:3000/table")
             .then(res => res.json())
@@ -171,7 +177,7 @@ function ShopPage() {
 
             {page === "table" && (
                 <div className="mt-2">
-                    <TabCompo shop={shop} onDelete={handleDelete}/>
+                    <TabCompo shop={shop} onSelectEdit={handleEdit} onDelete={handleDelete}/>
                 </div>
             )}
 
@@ -181,7 +187,7 @@ function ShopPage() {
                         <FormCompo shop={shop} editData={selectedItem} onSubmit={handleSave}/>
                     </div>
                     <div className="col-md-6 ms-0 d-flex align-items-stretch">
-                        <TabCompo shop={shop} onDelete={handleDelete}/>
+                        <TabCompo shop={shop} onSelectEdit={handleEdit} onDelete={handleDelete}/>
                     </div>
                 </div>
             )}
