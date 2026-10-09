@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import "../App.css"
+const DefModel = [ "ROG Strix B550-F", "Ryzen 5 5600X", "RTX 4070", "CT500P3", "WDS480 G3GOA", "SDCZ48 064G I35",
+    "MX Mech Keys", "B100", "S2721DS", "RM650x" ];
 
-const emptyForm = { id: null, productName: "", companyName: "", quantity: "", price: "", modelName: "" };
+const emptyForm = { id: null, productName: "", companyName: "", quantity: "", price: "", modelName: DefModel };
 
 const labelStyle = { paddingTop: "1 rem" };
 
@@ -38,6 +41,9 @@ export function FormCompo({ shop, editData, onSubmit }) {
     const [formError, setFormError] = useState("");
 
     const modelSet = new Set();
+    for (let i = 0; i < DefModel.length; i++) {
+        modelSet.add(DefModel[i]);
+    }
     for (let i = 0; i < shop.length; i++) {
         for (let j = 0; j < shop[i].models.length; j++) {
             modelSet.add(shop[i].models[j]);
@@ -77,8 +83,8 @@ export function FormCompo({ shop, editData, onSubmit }) {
     }
 
     return (
-        <div className="card shop-box bg-dark-subtle h-100">
-            <div className="card-header bg-body-tertiary bg-opacity-25 text-dark">
+        <div className="card shop-box bg-dark-subtle h-100 font-Lora border-info-subtle">
+            <div className="card-header bg-body-tertiary bg-opacity-25 text-dark border-info">
                 <h4 className="text-xl-start mx-5 my-3">FORM</h4>
             </div>
 

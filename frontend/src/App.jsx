@@ -1,28 +1,27 @@
 import { useState , useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import { House, Table, Pass } from "react-bootstrap-icons";
+import { House, Table, Pen, Sun, Moon } from "react-bootstrap-icons";
 import { TabCompo } from "./components/TabCompo.jsx";
 import { FormCompo } from "./components/FormCompo.jsx";
 import "./App.css";
-
+const [dark, setDark] = useState(true);
+function isDark() {
+    setDark(!dark);
+}
 function Home() {
-    const [dark, setDark] = useState(true);
-    function isDark() {
-        setDark(!dark);
-    }
     return (
-        <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-            <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+        <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light bg-opacity-75"}`}>
+            <h1 className={`font-Outfit text-center  ${dark ? "text-info":"text-info-emphasis" }`}>Pc Building Store</h1>
             <Nav dark={dark} onToggle={isDark} />
-            <div className="row justify-content-center gap-3 pt-4">
+            <div className="row justify-content-center gap-3 pt-4 font-Lora">
                 <div className="col-md-4">
-                    <div className="card h-100">
-                        <div className="card-body bg-warning-subtle text-dark-emphasis text-center p-5">
+                    <div className="card h-100 border-info-subtle">
+                        <div className={`card-body bg-warning bg-opacity-10 text-dark-emphasis text-center p-5`}>
                             <h2>Table</h2>
                         </div>
-                        <div className="card-footer bg-warning-subtle border-top border-dark-subtle text-center">
+                        <div className={`card-footer bg-warning bg-opacity-10 border-top border-info-subtle text-center`}>
                             <Link to="/tables" className="d-inline-flex align-items-center ms-2 text-reset text-decoration-none">
-                            <p className="nav-arrow d-inline-flex align-items-center m-2 p-2 text-warning-emphasis text-muted">
+                            <p className="nav-arrow d-inline-flex align-items-center m-2 p-2 text-warning-emphasis text-muted border-info">
                                 Open the table view
                                     <svg width="48" height="24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M28 2 L40 12 L28 22" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
@@ -33,8 +32,8 @@ function Home() {
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <Link to="/tablef" className="card text-decoration-none h-100">
-                        <div className="card-body bg-warning-subtle text-dark-emphasis  text-center p-5">
+                    <Link to="/tablef" className="card text-decoration-none h-100 border-info-subtle">
+                        <div className={`card-body bg-warning bg-opacity-10 text-dark-emphasis  text-center p-5`}>
                             <h2>Form</h2>
                             <p/>
                             <p>Open the table view along with the form</p>
@@ -48,7 +47,6 @@ function Home() {
 
 function ShopPage({ isTableAndForm = true }) {
     const [shop, setShop] = useState([]);
-    const [dark, setDark] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
     useEffect(() => {
         fetch("http://localhost:3000/table")
@@ -170,16 +168,14 @@ function ShopPage({ isTableAndForm = true }) {
         }
         setShop(newShop);
     }
-    function isDark() {
-        setDark(!dark);
-    }
+
         function ThemeToggle({dark}){
         return(
         <div className="form-check form-switch my-3 p-0 d-flex justify-content-end">
   <span className={`fw-semibold ${dark ? "text-light" : "text-dark"}`}>
         {dark ? "Darkㅤ" : "Lightㅤ"}
     </span>
-            <input className="form-check-input mx-0 theme-toggle border-dark" type="checkbox" role="switch" id="themeToggle" checked={dark} onChange={isDark} />
+            <input className="form-check-input mx-0 theme-toggle border-info-subtle" type="checkbox" role="switch" id="themeToggle" checked={dark} onChange={isDark} />
         </div>
         );
     }
@@ -187,21 +183,21 @@ function ShopPage({ isTableAndForm = true }) {
         return (
             <>
                 {isTableAndForm ? (
-            <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-                <h1 className={`title-a text-center  ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+            <div className={`container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light bg-opacity-75"}`}>
+                <h1 className={`font-Outfit text-center  ${dark ? "text-info":"text-info-emphasis" }`}>Pc Building Store</h1>
                 <Nav dark={dark} onToggle={isDark} />
-                <div className="row pt-4 align-items-stretch">
+                <div className="row pt-4 align-items-stretch font-Lora">
                     <div className="col-md-5 ms-md-5 me-3 d-flex align-items-stretch">
                         <FormCompo shop={shop} editData={selectedItem} onSubmit={handleSave}/>
 
                     </div>
-                    <div className="col-md-6 ms-0 d-flex align-items-stretch">
+                    <div className="col-md-6 ms-0 d-flex align-items-stretch font-Lora">
                         <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
                     </div>
                 </div>
             </div>):(
-                <div className={`card container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light-subtle"}`}>
-                    <h1 className={`title-a text-center ${dark ? "text-info":"text-primary" }`}>Pc Building Store</h1>
+                <div className={`card container-fluid min-vh-100 pt-4 pb-5 ${dark ? "bg-dark" : "bg-light bg-opacity-75"} font-Lora`}>
+                    <h1 className={`font-Outfit text-center ${dark ? "text-info":"text-info-emphasis" }`}>Pc Building Store</h1>
                     <Nav dark={dark} onToggle={isDark} />
                     <div className="card-body gap-3 mt-2">
                         <TabCompo shop={shop} onSelectEdit={setSelectedItem} onDelete={handleDelete}/>
@@ -215,11 +211,11 @@ function ShopPage({ isTableAndForm = true }) {
 }
 function Nav({ dark, onToggle }) {
     return (
-        <ul className={`nav nav-tabs navbar-collapse align-items-center ${dark ? "border-info":"border-primary"}`}>
-            <li className="nav-item"><Link to="/" className="nav-link text-info"><House /></Link>
+        <ul className={`nav nav-tabs navbar-collapse align-items-center ${dark ? "border-warning-emphasis":"border-dark"} font-Lora m-0`}>
+            <li className="nav-item"><Link to="/" className={`nav-link text-center ${dark ? "text-light":"text-warning-emphasis"}`}><House /><div style={{ breakAfter: 'page' }} />Home</Link>
             </li>
-            <li className="nav-item"><Link to="/tables" className="nav-link text-info"><Table /></Link></li>
-            <li className="nav-item"><Link to="/tablef" className="nav-link text-info"><Pass /></Link></li>
+            <li className="nav-item"><Link to="/tables" className={`nav-link text-center ${dark ? "text-light":"text-warning-emphasis"}`}><Table /><div style={{ breakAfter: 'page' }} />Table</Link></li>
+            <li className="nav-item"><Link to="/tablef" className={`nav-link text-center ${dark ? "text-light":"text-warning-emphasis"}`}><Pen /><div style={{ breakAfter: 'page' }} />Form</Link></li>
             {onToggle && (
                 <li className="nav-item ms-auto p-1">
                     <button
@@ -228,7 +224,7 @@ function Nav({ dark, onToggle }) {
                         onClick={onToggle}
                         aria-label="Toggle theme"
                     >
-                        {dark ? "☀️" : "🌙"}
+                        {dark ? <Moon /> : <Sun />}
                     </button>
                 </li>
             )}

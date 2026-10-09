@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./TabCompo.css";
+import "../App.css"
 
 const PAGE_SIZE = 5;
 
@@ -54,8 +55,8 @@ export function TabCompo({ shop = [], onSelectEdit = () => {}, onDelete = () => 
     }
 
     return (
-        <div className="card shop-list-card bg-dark-subtle d-flex flex-column h-100">
-            <div className="card-header bg-body-tertiary bg-opacity-25 text-dark">
+        <div className="card shop-list-card bg-dark-subtle d-flex flex-column h-100 font-Lora border-info-subtle">
+            <div className="card-header bg-body-tertiary bg-opacity-25 text-dark border-info">
                 <h4 className="text-xl-start mx-5 my-3">LIST</h4>
             </div>
             <div className="card-body bg-dark bg-opacity-10 p-3 flex-grow-1 d-flex">

@@ -29,9 +29,11 @@ body {
   height: 1rem;
 }
 
-.font-poppins {
-  font-family: "Poppins", sans-serif;
+.font-Outfit  {
+  font-family: "Outfit ", sans-serif;
 }
-
+.font-Lora {
+  font-family: "Lora",sans-serif;
+}
 .nav-arrow { transition: transform 0.3s ease, background-color 0.3s ease; }
 .nav-arrow:hover { transform: translateX(8px); background-color: rgba(0,0,0,0.08); }
